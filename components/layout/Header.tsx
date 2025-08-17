@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Code2, Moon, Sun, Menu, X } from "lucide-react"
+import Image from "next/image"
 
 interface HeaderProps {
   isDarkMode: boolean
@@ -26,11 +27,11 @@ export default function Header({ isDarkMode, toggleDarkMode }: HeaderProps) {
   }
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 transition-all duration-300">
+    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 transition-all duration-300 px-2 py-1">
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center">
-            <Code2 className="w-6 h-6 text-white" />
+          <div className="w-18 h-18 rounded-lg flex items-center justify-center">
+           <Image src={'/images/logo.png'} width={500} height={500} alt="this website's logo"/>
           </div>
           <div className="font-playfair text-2xl font-bold text-primary">Shawon Mondol Shibu</div>
         </div>
