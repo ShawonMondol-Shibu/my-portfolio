@@ -2,19 +2,19 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { FaHtml5, FaCss3Alt, FaReact } from "react-icons/fa"
-import { SiNextdotjs, SiTypescript, SiTailwindcss, SiSass } from "react-icons/si"
-import { Code2 } from "lucide-react"
+import { SiNextdotjs, SiTypescript, SiTailwindcss, SiSass, SiShadcnui, SiDaisyui } from "react-icons/si"
 
 export default function SkillsSection() {
   const skills = [
     { name: "HTML5", icon: FaHtml5, description: "Semantic markup and accessibility", color: "text-orange-500" },
-    { name: "CSS/SCSS", icon: FaCss3Alt, description: "Modern styling and animations", color: "text-blue-500" },
+    { name: "CSS3", icon: FaCss3Alt, description: "Modern styling and animations", color: "text-blue-500" },
     { name: "SCSS", icon: SiSass, description: "Advanced CSS preprocessing", color: "text-pink-500" },
     { name: "ReactJS", icon: FaReact, description: "Component-based architecture", color: "text-cyan-400" },
+    { name: "Tailwind CSS", icon: SiTailwindcss, description: "Tailwind CSS components", color: "text-cyan-500" },
     { name: "Next.js", icon: SiNextdotjs, description: "Full-stack React framework", color: "text-white" },
     { name: "TypeScript", icon: SiTypescript, description: "Type-safe JavaScript", color: "text-blue-600" },
-    { name: "shadcn/ui", icon: Code2, description: "Modern component library", color: "text-purple-500" },
-    { name: "Daisy UI", icon: SiTailwindcss, description: "Tailwind CSS components", color: "text-green-500" },
+    { name: "shadcn/ui", icon: SiShadcnui, description: "Modern component library", color: "text-purple-500" },
+    { name: "Daisy UI", icon: SiDaisyui, description: "Tailwind CSS components", color: "text-green-500" },
   ]
 
   return (
