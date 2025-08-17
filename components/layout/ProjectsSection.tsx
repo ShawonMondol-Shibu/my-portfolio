@@ -5,6 +5,8 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { FaGithub } from "react-icons/fa"
 import { ExternalLink } from "lucide-react"
+import Image from "next/image"
+import Link from "next/link"
 
 export default function ProjectsSection() {
   const projects = [
@@ -12,28 +14,28 @@ export default function ProjectsSection() {
       title: "E-commerce Dashboard",
       description:
         "A modern admin dashboard built with Next.js and TypeScript, featuring real-time analytics and inventory management.",
-      tags: ["Next.js", "TypeScript", "shadcn/ui"],
-      image: "/placeholder.svg?height=200&width=300",
-      demoUrl: "#",
-      githubUrl: "#",
+      tags: ["Next.js","Tailwind CSS", "TypeScript", "shadcn/ui","Recharts"],
+      image: "/images/dashboard.png",
+      demoUrl: "https://admin-panel-dashboard-puce.vercel.app/",
+      githubUrl: "https://github.com/ShawonMondol-Shibu/Admin_Panel_Dashboard",
     },
     {
-      title: "Task Management App",
+      title: "Furniro-Shop",
       description:
-        "Collaborative task management application with drag-and-drop functionality and team collaboration features.",
-      tags: ["React", "SCSS", "Daisy UI"],
-      image: "/placeholder.svg?height=200&width=300",
-      demoUrl: "#",
-      githubUrl: "#",
+        "Furniture buying system. u can buy your favourite furniture by using this site ",
+      tags: ["Next.js", "Tailwind CSS", "TypeScript", "Shadcn UI", ],
+      image: "/images/furniro.png",
+      demoUrl: "https://furniro-shop-gamma.vercel.app/",
+      githubUrl: "https://github.com/ShawonMondol-Shibu/Furniro-shop",
     },
     {
       title: "Portfolio Website",
       description:
         "Responsive portfolio website showcasing modern web development practices and clean design principles.",
-      tags: ["Next.js", "Tailwind CSS", "TypeScript"],
-      image: "/placeholder.svg?height=200&width=300",
-      demoUrl: "#",
-      githubUrl: "#",
+      tags: ["Next.js", "Tailwind CSS", "TypeScript", "Shadcn UI"],
+      image: "/images/portfolio.png",
+      demoUrl: "https://my-portfolio-delta-seven-66.vercel.app/",
+      githubUrl: "https://github.com/ShawonMondol-Shibu/my-portfolio",
     },
   ]
 
@@ -53,9 +55,11 @@ export default function ProjectsSection() {
               className="overflow-hidden hover:shadow-xl transition-all duration-500 hover:-translate-y-3 animate-on-scroll group"
             >
               <div className="relative overflow-hidden">
-                <img
+                <Image
                   src={project.image || "/placeholder.svg"}
                   alt={project.title}
+                  height={500}
+                  width={500}
                   className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end justify-center pb-4">
@@ -64,17 +68,24 @@ export default function ProjectsSection() {
                       variant="secondary"
                       size="sm"
                       className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300"
+                      asChild
                     >
+                      <Link href={project.demoUrl} target="_blank">
+                      
                       <ExternalLink className="w-4 h-4 mr-2" />
-                      Demo
+                      Live
+                      </Link>
                     </Button>
                     <Button
                       variant="outline"
                       size="sm"
                       className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75 bg-transparent"
+                      asChild
                     >
+                      <Link href={project.githubUrl} target="_blank">
                       <FaGithub className="w-4 h-4 mr-2" />
                       Code
+                      </Link>
                     </Button>
                   </div>
                 </div>
