@@ -1,9 +1,13 @@
 import type React from "react";
 import type { Metadata } from "next";
-import { GeistSans } from "next/font/google";
-import { GeistMono } from "next/font/google";
-import { Playfair_Display } from "next/font/google";
+import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+});
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -25,20 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <style>{`
-html {
-  font-family: ${GeistSans.style.fontFamily};
-  --font-sans: ${GeistSans.variable};
-  --font-mono: ${GeistMono.variable};
-  /* Added Playfair Display variable for headings */
-  --font-playfair: ${playfair.variable};
-}
-        `}</style>
-      </head>
-      <body
-        className={`${GeistSans.variable} ${GeistMono.variable} ${playfair.variable}`}
-      >
+      <body className={`${inter.variable} ${playfair.variable}`}>
         {children}
       </body>
     </html>

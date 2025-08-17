@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { FaDownload } from "react-icons/fa"
 import { ExternalLink, Zap } from "lucide-react"
+import Image from "next/image"
 
 export default function HeroSection() {
   const [typewriterText, setTypewriterText] = useState("")
@@ -50,6 +51,23 @@ export default function HeroSection() {
           <Zap className="w-4 h-4 text-primary" />
           <span className="text-sm font-medium text-primary">Available for new projects</span>
         </div>
+
+        <div className="mb-8 flex justify-center">
+          <div className="relative group">
+            <div className="absolute -inset-1 bg-gradient-to-r from-primary to-accent rounded-full blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-pulse"></div>
+            <div className="relative">
+              <Image
+                src="/images/profile.png"
+                alt="Shawon Mondol Shibu"
+                width={200}
+                height={200}
+                className="rounded-full object-cover border-4 border-background shadow-2xl transform group-hover:scale-105 transition-all duration-300"
+                priority
+              />
+            </div>
+          </div>
+        </div>
+
         <div className="min-h-[200px] flex flex-col items-center justify-center">
           <h1 className="font-playfair text-4xl md:text-6xl lg:text-7xl font-bold mb-2 bg-gradient-to-r from-foreground via-primary to-accent bg-clip-text text-transparent">
             Hi, I am Shawon Mondol Shibu
