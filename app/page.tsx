@@ -1,14 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Header from "@/components/Header";
-import HeroSection from "@/components/HeroSection";
-import SkillsSection from "@/components/SkillsSection";
-import ProjectsSection from "@/components/ProjectsSection";
-import EducationSection from "@/components/EducationSection";
-import ExperienceSection from "@/components/ExperienceSection";
-import ContactSection from "@/components/ContactSection";
-import Footer from "@/components/Footer";
+import Header from "@/components/layout/Header";
+import HeroSection from "@/components/layout/HeroSection";
+import SkillsSection from "@/components/layout/SkillsSection";
+import ProjectsSection from "@/components/layout/ProjectsSection";
+import EducationSection from "@/components/layout/EducationSection";
+import ExperienceSection from "@/components/layout/ExperienceSection";
+import ContactSection from "@/components/layout/ContactSection";
+import Footer from "@/components/layout/Footer";
 
 export default function Portfolio() {
   const [isDarkMode, setIsDarkMode] = useState(true);
