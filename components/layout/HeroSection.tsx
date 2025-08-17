@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { FaDownload } from "react-icons/fa"
 import { ExternalLink, Zap } from "lucide-react"
 import Image from "next/image"
+import Link from "next/link"
 
 export default function HeroSection() {
   const [typewriterText, setTypewriterText] = useState("")
@@ -97,9 +98,12 @@ export default function HeroSection() {
             variant="outline"
             size="lg"
             className="hover:bg-accent hover:text-accent-foreground transform hover:scale-105 transition-all duration-200 bg-transparent"
+            asChild
           >
+            <Link href={'/shawon-cv.pdf'} download={true}>
             <FaDownload className="w-4 h-4 mr-2" />
             Download Resume
+            </Link>
           </Button>
         </div>
       </div>
