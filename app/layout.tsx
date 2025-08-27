@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   title: "Shawon Mondol Shibu",
   description:
     "Professional portfolio of Shawon Mondol Shibu, a skilled frontend web developer specializing in React, Next.js, and modern web technologies.",
-  generator: "shawon mondol shibu + v0.app",
+  generator: "shawon mondol shibu",
 };
 
 export default function RootLayout({
