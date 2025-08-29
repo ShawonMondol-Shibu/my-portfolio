@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { FaHtml5, FaCss3Alt, FaReact, FaJs } from "react-icons/fa";
+import { FaHtml5, FaCss3Alt, FaReact, FaJs, FaNodeJs } from "react-icons/fa";
 import {
   SiNextdotjs,
   SiTypescript,
@@ -15,6 +15,7 @@ import {
   SiSass,
   SiShadcnui,
   SiDaisyui,
+  SiExpress,
 } from "react-icons/si";
 
 export default function SkillsSection() {
@@ -66,6 +67,18 @@ export default function SkillsSection() {
       icon: SiTypescript,
       description: "Type-safe JavaScript",
       color: "text-blue-600",
+    },
+    {
+      name: "Node.js",
+      icon: FaNodeJs,
+      description: "Type-safe JavaScript",
+      color: "text-green-600",
+    },
+    {
+      name: "Express.js",
+      icon: SiExpress,
+      description: "Type-safe JavaScript",
+      color: "text-white-600",
     },
     {
       name: "shadcn/ui",
