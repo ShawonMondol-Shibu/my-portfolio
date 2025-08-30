@@ -45,11 +45,11 @@ export default function ProjectsSection() {
     {
       title: "Discount ME",
       description:
-        "Responsive portfolio website showcasing modern web development practices and clean design principles.",
+        "A Restaurant Booking and food ordering website",
       tags: ["Next.js", "Tailwind CSS", "TypeScript", "Shadcn UI"],
       image: "/images/restaurant.png",
       demoUrl: "https://restaurant-management-black-xi.vercel.app/",
-      githubUrl: "https://github.com/ShawonMondol-Shibu/my-portfolio",
+      githubUrl: "https://github.com/ShawonMondolShibu/Restaurant-Management",
     },
     {
       title: "Portfolio Website",
