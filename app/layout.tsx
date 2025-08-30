@@ -19,6 +19,15 @@ export const metadata: Metadata = {
   title: "Shawon Mondol Shibu",
   description:
     "Professional portfolio of Shawon Mondol Shibu, a skilled frontend web developer specializing in React, Next.js, and modern web technologies.",
+  keywords: [
+    "Shawon",
+    "Mondol",
+    "Shibu",
+    "Shawon Mondol",
+    "Shibu Mondol",
+    "Shawon Shibu",
+    "Shawon Mondol Shibu",
+  ],
   generator: "shawon mondol shibu",
 };
 
