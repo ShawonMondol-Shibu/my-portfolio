@@ -36,12 +36,20 @@ export default function ProjectsSection() {
     },
     {
       title: "Memorial-Magazine",
-      description:
-        "Explore Old days Memorys.",
+      description: "Explore Old days Memorys.",
       tags: ["Next.js", "Tailwind CSS", "TypeScript", "Shadcn UI"],
       image: "/images/memorial-magazine.png",
       demoUrl: "https://memorial-magazine.vercel.app/",
       githubUrl: "https://github.com/ShawonMondolShibu/memorial-magazine",
+    },
+    {
+      title: "Discount ME",
+      description:
+        "Responsive portfolio website showcasing modern web development practices and clean design principles.",
+      tags: ["Next.js", "Tailwind CSS", "TypeScript", "Shadcn UI"],
+      image: "/images/restaurant.png",
+      demoUrl: "https://restaurant-management-black-xi.vercel.app/",
+      githubUrl: "https://github.com/ShawonMondol-Shibu/my-portfolio",
     },
     {
       title: "Portfolio Website",
@@ -49,7 +57,7 @@ export default function ProjectsSection() {
         "Responsive portfolio website showcasing modern web development practices and clean design principles.",
       tags: ["Next.js", "Tailwind CSS", "TypeScript", "Shadcn UI"],
       image: "/images/portfolio.png",
-      demoUrl: "https://my-portfolio-delta-seven-66.vercel.app/",
+      demoUrl: "https://shawon-mondol-shibu.vercel.app/",
       githubUrl: "https://github.com/ShawonMondol-Shibu/my-portfolio",
     },
   ];
