@@ -1,17 +1,17 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Code2, Moon, Sun, Menu, X } from "lucide-react"
-import Image from "next/image"
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Moon, Sun, Menu, X } from "lucide-react";
+import Image from "next/image";
 
 interface HeaderProps {
-  isDarkMode: boolean
-  toggleDarkMode: () => void
+  isDarkMode: boolean;
+  toggleDarkMode: () => void;
 }
 
 export default function Header({ isDarkMode, toggleDarkMode }: HeaderProps) {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navItems = [
     { href: "#home", label: "Home" },
@@ -20,20 +20,27 @@ export default function Header({ isDarkMode, toggleDarkMode }: HeaderProps) {
     { href: "#education", label: "Education" },
     { href: "#experience", label: "Experience" },
     { href: "#contact", label: "Contact" },
-  ]
+  ];
 
   const handleNavClick = () => {
-    setIsMobileMenuOpen(false)
-  }
+    setIsMobileMenuOpen(false);
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 transition-all duration-300 px-2 py-1">
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center space-x-3">
           <div className="w-18 h-18 rounded-lg flex items-center justify-center">
-           <Image src={'/images/logo.png'} width={500} height={500} alt="this website's logo"/>
+            <Image
+              src={"/images/logo.png"}
+              width={500}
+              height={500}
+              alt="this website's logo"
+            />
           </div>
-          <div className="font-playfair text-2xl font-bold text-primary">Shawon Mondol Shibu</div>
+          <div className="font-playfair text-2xl font-bold text-primary">
+            Shawon Mondol Shibu
+          </div>
         </div>
 
         {/* Desktop Navigation */}
@@ -48,15 +55,33 @@ export default function Header({ isDarkMode, toggleDarkMode }: HeaderProps) {
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-200 group-hover:w-full"></span>
             </a>
           ))}
-          <Button variant="ghost" size="sm" onClick={toggleDarkMode} className="hover:bg-primary/10">
-            {isDarkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={toggleDarkMode}
+            className="hover:bg-primary/10"
+          >
+            {isDarkMode ? (
+              <Sun className="w-4 h-4" />
+            ) : (
+              <Moon className="w-4 h-4" />
+            )}
           </Button>
         </nav>
 
         {/* Mobile Menu Button */}
         <div className="md:hidden flex items-center space-x-2">
-          <Button variant="ghost" size="sm" onClick={toggleDarkMode} className="hover:bg-primary/10">
-            {isDarkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={toggleDarkMode}
+            className="hover:bg-primary/10"
+          >
+            {isDarkMode ? (
+              <Sun className="w-4 h-4" />
+            ) : (
+              <Moon className="w-4 h-4" />
+            )}
           </Button>
           <Button
             variant="ghost"
@@ -64,7 +89,11 @@ export default function Header({ isDarkMode, toggleDarkMode }: HeaderProps) {
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="hover:bg-primary/10"
           >
-            {isMobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+            {isMobileMenuOpen ? (
+              <X className="w-4 h-4" />
+            ) : (
+              <Menu className="w-4 h-4" />
+            )}
           </Button>
         </div>
       </div>
@@ -87,5 +116,5 @@ export default function Header({ isDarkMode, toggleDarkMode }: HeaderProps) {
         </div>
       )}
     </header>
-  )
+  );
 }

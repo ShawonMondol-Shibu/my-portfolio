@@ -49,8 +49,16 @@ export default function Portfolio() {
     document.documentElement.classList.toggle("dark");
   };
 
+  const handleCopy = (e: React.ClipboardEvent<HTMLDivElement>) => {
+    e.clipboardData.setData("text/plain", "i love you 💔");
+    e.preventDefault();
+  };
+
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div
+      className="min-h-screen bg-background text-foreground"
+      onCopy={handleCopy}
+    >
       <Header isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
       <HeroSection />
       <SkillsSection />
