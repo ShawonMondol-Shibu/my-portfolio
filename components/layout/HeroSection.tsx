@@ -58,11 +58,11 @@ export default function HeroSection() {
             <div className="absolute -inset-1 bg-gradient-to-r from-primary to-accent rounded-full blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-pulse"></div>
             <div className="relative">
               <Image
-                src="/images/profile.png"
+                src="/images/shawon.png"
                 alt="Shawon Mondol Shibu"
                 width={200}
                 height={200}
-                className="rounded-full object-cover border-4 border-background shadow-2xl transform group-hover:scale-105 transition-all duration-300"
+                className="rounded-full aspect-square object-cover object-center border-4 border-background shadow-2xl transform group-hover:scale-105 transition-all duration-300"
                 priority
               />
             </div>
