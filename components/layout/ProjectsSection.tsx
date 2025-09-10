@@ -28,7 +28,7 @@ export default function ProjectsSection() {
         "Recharts",
         "TanStack Query",
       ],
-      image: "",
+      image: "/images/shibu-hub.png",
       demoUrl: "https://shibu-hub.vercel.app/",
       githubUrl: "https://github.com/ShawonMondol-Shibu/ShibuHub.git",
     },
