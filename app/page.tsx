@@ -50,14 +50,14 @@ export default function Portfolio() {
   };
 
   const handleCopy = (e: React.ClipboardEvent<HTMLDivElement>) => {
-    e.clipboardData.setData("text/plain", "i love you 💔");
-    e.preventDefault();
+    // e.clipboardData.setData("text/plain", "i love you 💔");
+    // e.preventDefault();
   };
 
   return (
     <div
       className="min-h-screen bg-background text-foreground"
-      onCopy={handleCopy}
+      // onCopy={handleCopy}
     >
       <Header isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
       <HeroSection />

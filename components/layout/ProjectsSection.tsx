@@ -17,6 +17,37 @@ import Link from "next/link";
 export default function ProjectsSection() {
   const projects = [
     {
+      title: "Shibu-hub",
+      description:
+        "Product's buying shop. and also we serve electronics, shipping and delivery services. ",
+      tags: [
+        "Next.js",
+        "TypeScript",
+        "TailwindCSS",
+        "Shadcn UI",
+        "Recharts",
+        "TanStack Query",
+      ],
+      image: "",
+      demoUrl: "https://shibu-hub.vercel.app/",
+      githubUrl: "https://github.com/ShawonMondol-Shibu/ShibuHub.git",
+    },
+    {
+      title: "Furniro-Shop",
+      description:
+        "Furniture buying system. you can buy your favourite furniture here. ",
+      tags: [
+        "Next.js",
+        "TypeScript",
+        "Tailwind CSS",
+        "Shadcn UI",
+        "Clerk Auth",
+      ],
+      image: "/images/furniro.png",
+      demoUrl: "https://furniro-shop-gamma.vercel.app/",
+      githubUrl: "https://github.com/ShawonMondol-Shibu/Furniro-shop",
+    },
+    {
       title: "E-commerce Dashboard",
       description:
         "A modern admin dashboard built with Next.js and TypeScript, featuring real-time analytics and inventory management.",
@@ -24,15 +55,6 @@ export default function ProjectsSection() {
       image: "/images/dashboard.png",
       demoUrl: "https://admin-panel-dashboard-puce.vercel.app/",
       githubUrl: "https://github.com/ShawonMondol-Shibu/Admin_Panel_Dashboard",
-    },
-    {
-      title: "Furniro-Shop",
-      description:
-        "Furniture buying system. u can buy your favourite furniture by using this site ",
-      tags: ["Next.js", "Tailwind CSS", "TypeScript", "Shadcn UI"],
-      image: "/images/furniro.png",
-      demoUrl: "https://furniro-shop-gamma.vercel.app/",
-      githubUrl: "https://github.com/ShawonMondol-Shibu/Furniro-shop",
     },
     {
       title: "Memorial-Magazine",
@@ -44,8 +66,7 @@ export default function ProjectsSection() {
     },
     {
       title: "Discount ME",
-      description:
-        "A Restaurant Booking and food ordering website",
+      description: "A Restaurant Booking and food ordering website",
       tags: ["Next.js", "Tailwind CSS", "TypeScript", "Shadcn UI"],
       image: "/images/restaurant.png",
       demoUrl: "https://restaurant-management-black-xi.vercel.app/",
