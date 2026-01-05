@@ -41,8 +41,10 @@ export default function ExperienceSection() {
               </p>
               <div className="mt-4 flex flex-wrap gap-2">
                 <Badge variant="outline">MongoDB</Badge>
+                <Badge variant="outline">Mongoose</Badge>
                 <Badge variant="outline">Express.js</Badge>
                 <Badge variant="outline">React.js</Badge>
+                <Badge variant="outline">Next.js</Badge>
                 <Badge variant="outline">Node.js</Badge>
                 <Badge variant="outline">Full-Stack Development</Badge>
               </div>

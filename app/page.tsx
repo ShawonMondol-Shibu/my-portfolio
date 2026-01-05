@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import Header from "@/components/layout/Header";
 import HeroSection from "@/components/layout/HeroSection";
 import SkillsSection from "@/components/layout/SkillsSection";
@@ -9,6 +9,7 @@ import EducationSection from "@/components/layout/EducationSection";
 import ExperienceSection from "@/components/layout/ExperienceSection";
 import ContactSection from "@/components/layout/ContactSection";
 import Footer from "@/components/layout/Footer";
+import GithubProjects from "@/components/layout/GithubProjects";
 
 export default function Portfolio() {
   const [isDarkMode, setIsDarkMode] = useState(true);
@@ -63,6 +64,9 @@ export default function Portfolio() {
       <HeroSection />
       <SkillsSection />
       <ProjectsSection />
+      <Suspense fallback={"loading..."}>
+        <GithubProjects />
+      </Suspense>
       <EducationSection />
       <ExperienceSection />
       <ContactSection />
