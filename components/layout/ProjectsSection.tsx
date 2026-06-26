@@ -1,56 +1,37 @@
-"use client";
+"use client"
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { FaGithub } from "react-icons/fa";
-import { ExternalLink } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
+import { useRef } from "react"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { FaGithub } from "react-icons/fa"
+import { ExternalLink } from "lucide-react"
+import Image from "next/image"
+import Link from "next/link"
 
 export default function ProjectsSection() {
+  const cardsRef = useRef<(HTMLDivElement | null)[]>([])
+
   const projects = [
     {
       title: "Shibu-hub",
-      description:
-        "Product's buying shop. and also we serve electronics, shipping and delivery services. ",
-      tags: [
-        "Next.js",
-        "TypeScript",
-        "TailwindCSS",
-        "Shadcn UI",
-        "Recharts",
-        "TanStack Query",
-      ],
+      description: "Product's buying shop. and also we serve electronics, shipping and delivery services.",
+      tags: ["Next.js", "TypeScript", "TailwindCSS", "Shadcn UI", "Recharts", "TanStack Query"],
       image: "/images/shibu-hub.png",
       demoUrl: "https://shibu-hub.vercel.app/",
       githubUrl: "https://github.com/ShawonMondol-Shibu/ShibuHub.git",
     },
     {
       title: "Furniro-Shop",
-      description:
-        "Furniture buying system. you can buy your favourite furniture here. ",
-      tags: [
-        "Next.js",
-        "TypeScript",
-        "Tailwind CSS",
-        "Shadcn UI",
-        "Clerk Auth",
-      ],
+      description: "Furniture buying system. you can buy your favourite furniture here.",
+      tags: ["Next.js", "TypeScript", "Tailwind CSS", "Shadcn UI", "Clerk Auth"],
       image: "/images/furniro.png",
       demoUrl: "https://furniro-shop-gamma.vercel.app/",
       githubUrl: "https://github.com/ShawonMondol-Shibu/Furniro-shop",
     },
     {
       title: "E-commerce Dashboard",
-      description:
-        "A modern admin dashboard built with Next.js and TypeScript, featuring real-time analytics and inventory management.",
+      description: "A modern admin dashboard built with Next.js and TypeScript, featuring real-time analytics.",
       tags: ["Next.js", "Tailwind CSS", "TypeScript", "shadcn/ui", "Recharts"],
       image: "/images/dashboard.png",
       demoUrl: "https://admin-panel-dashboard-puce.vercel.app/",
@@ -74,91 +55,104 @@ export default function ProjectsSection() {
     },
     {
       title: "Portfolio Website",
-      description:
-        "Responsive portfolio website showcasing modern web development practices and clean design principles.",
+      description: "Responsive portfolio showcasing modern web development practices.",
       tags: ["Next.js", "Tailwind CSS", "TypeScript", "Shadcn UI"],
       image: "/images/portfolio.png",
       demoUrl: "https://shawon-mondol-shibu.vercel.app/",
       githubUrl: "https://github.com/ShawonMondol-Shibu/my-portfolio",
     },
-  ];
+  ]
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>, index: number) => {
+    const card = cardsRef.current[index]
+    if (!card) return
+    const rect = card.getBoundingClientRect()
+    const x = e.clientX - rect.left
+    const y = e.clientY - rect.top
+    const centerX = rect.width / 2
+    const centerY = rect.height / 2
+    const rotateX = (y - centerY) / 15
+    const rotateY = (centerX - x) / 15
+    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02,1.02,1.02)`
+  }
+
+  const handleMouseLeave = (index: number) => {
+    const card = cardsRef.current[index]
+    if (!card) return
+    card.style.transform = "perspective(1000px) rotateX(0) rotateY(0) scale3d(1,1,1)"
+  }
 
   return (
-    <section id="projects" className="py-20 px-4">
-      <div className="container mx-auto">
+    <section id="projects" className="py-24 px-4 bg-card/30">
+      <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-12 animate-on-scroll">
-          <h2 className="font-playfair text-4xl font-bold mb-4">
-            Featured Projects
+          <h2 className="font-playfair text-4xl md:text-5xl font-bold mb-4">
+            Featured <span className="text-neon">Projects</span>
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            A showcase of my recent work and creative solutions to complex
-            problems
+            A showcase of my recent work and creative solutions to complex problems
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((project, index) => (
-            <Card
+            <div
               key={index}
-              className="overflow-hidden hover:shadow-xl transition-all duration-500 hover:-translate-y-3 animate-on-scroll group"
+              ref={(el) => { cardsRef.current[index] = el }}
+              className="animate-on-scroll transition-transform duration-200 ease-out"
+              style={{ animationDelay: `${index * 0.1}s` }}
+              onMouseMove={(e) => handleMouseMove(e, index)}
+              onMouseLeave={() => handleMouseLeave(index)}
             >
-              <div className="relative overflow-hidden">
-                <Image
-                  src={project.image || "/placeholder.svg"}
-                  alt={project.title}
-                  height={500}
-                  width={500}
-                  className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end justify-center pb-4">
-                  <div className="flex space-x-2">
-                    <Button
-                      variant="secondary"
-                      size="sm"
-                      className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300"
-                      asChild
-                    >
-                      <Link href={project.demoUrl} target="_blank">
-                        <ExternalLink className="w-4 h-4 mr-2" />
-                        Live
-                      </Link>
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75 bg-transparent"
-                      asChild
-                    >
-                      <Link href={project.githubUrl} target="_blank">
-                        <FaGithub className="w-4 h-4 mr-2" />
-                        Code
-                      </Link>
-                    </Button>
+              <Card className="overflow-hidden h-full bg-card border-border/50 hover:border-primary/30 transition-all duration-300 group">
+                <div className="relative overflow-hidden aspect-video">
+                  <Image
+                    src={project.image || "/placeholder.svg"}
+                    alt={project.title}
+                    fill
+                    className="object-cover group-hover:scale-110 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end justify-center pb-4">
+                    <div className="flex gap-2">
+                      <Button size="sm" className="bg-primary hover:bg-primary/80 text-white" asChild>
+                        <Link href={project.demoUrl} target="_blank">
+                          <ExternalLink data-icon="inline-start" />
+                          Live
+                        </Link>
+                      </Button>
+                      <Button size="sm" variant="outline" className="border-border/50 bg-background/50 backdrop-blur-sm" asChild>
+                        <Link href={project.githubUrl} target="_blank">
+                          <FaGithub data-icon="inline-start" />
+                          Code
+                        </Link>
+                      </Button>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <CardHeader>
-                <CardTitle className="font-playfair group-hover:text-primary transition-colors duration-200">
-                  {project.title}
-                </CardTitle>
-                <CardDescription>{project.description}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap gap-2">
-                  {project.tags.map((tag, tagIndex) => (
-                    <Badge
-                      key={tagIndex}
-                      variant="secondary"
-                      className="hover:bg-primary hover:text-primary-foreground transition-colors duration-200"
-                    >
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+                <CardHeader>
+                  <CardTitle className="font-playfair text-lg group-hover:text-primary transition-colors">
+                    {project.title}
+                  </CardTitle>
+                  <CardDescription>{project.description}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex flex-wrap gap-1.5">
+                    {project.tags.map((tag, tagIndex) => (
+                      <Badge
+                        key={tagIndex}
+                        variant="outline"
+                        className="text-xs border-border/30 text-muted-foreground hover:bg-primary/10 hover:text-primary hover:border-primary/30 transition-colors"
+                      >
+                        {tag}
+                      </Badge>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           ))}
         </div>
       </div>
     </section>
-  );
+  )
 }

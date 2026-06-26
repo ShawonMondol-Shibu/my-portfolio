@@ -1,19 +1,21 @@
-import type React from "react";
-import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
-import "./globals.css";
+import type React from "react"
+import type { Metadata } from "next"
+import { Inter, Playfair_Display } from "next/font/google"
+import "./globals.css"
+import CustomCursor from "@/components/layout/CustomCursor"
+import { ThemeProvider } from "next-themes"
 
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-inter",
-});
+})
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-playfair",
-});
+})
 
 export const metadata: Metadata = {
   title: "Shawon Mondol Shibu",
@@ -29,18 +31,26 @@ export const metadata: Metadata = {
     "Shawon Mondol Shibu",
   ],
   generator: "shawon mondol shibu",
-};
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className={`${inter.variable} ${playfair.variable}`}>
-        {children}
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${inter.variable} ${playfair.variable} antialiased`}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <CustomCursor />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
-  );
+  )
 }

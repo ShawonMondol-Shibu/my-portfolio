@@ -1,76 +1,52 @@
-"use client";
+"use client"
 
-import { useState, useEffect, Suspense } from "react";
-import Header from "@/components/layout/Header";
-import HeroSection from "@/components/layout/HeroSection";
-import SkillsSection from "@/components/layout/SkillsSection";
-import ProjectsSection from "@/components/layout/ProjectsSection";
-import EducationSection from "@/components/layout/EducationSection";
-import ExperienceSection from "@/components/layout/ExperienceSection";
-import ContactSection from "@/components/layout/ContactSection";
-import Footer from "@/components/layout/Footer";
-import GithubProjects from "@/components/layout/GithubProjects";
+import { useEffect, useState } from "react"
+import Header from "@/components/layout/Header"
+import HeroSection from "@/components/layout/HeroSection"
+import SkillsSection from "@/components/layout/SkillsSection"
+import ProjectsSection from "@/components/layout/ProjectsSection"
+import ServicesSection from "@/components/layout/ServicesSection"
+import FunSection from "@/components/layout/FunSection"
+import GithubProjects from "@/components/layout/GithubProjects"
+import EducationSection from "@/components/layout/EducationSection"
+import ExperienceSection from "@/components/layout/ExperienceSection"
+import ContactSection from "@/components/layout/ContactSection"
+import Footer from "@/components/layout/Footer"
+import HeroScene from "@/components/three/HeroScene"
+import { useScrollReveal } from "@/lib/useGsap"
 
 export default function Portfolio() {
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  const [mounted, setMounted] = useState(false)
+  const containerRef = useScrollReveal()
 
   useEffect(() => {
-    document.documentElement.classList.add("dark");
-  }, []);
+    setMounted(true)
+  }, [])
 
-  useEffect(() => {
-    document.documentElement.style.scrollBehavior = "smooth";
-    return () => {
-      document.documentElement.style.scrollBehavior = "auto";
-    };
-  }, []);
-
-  useEffect(() => {
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: "0px 0px -50px 0px",
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("animate-fade-in-up");
-        }
-      });
-    }, observerOptions);
-
-    const elements = document.querySelectorAll(".animate-on-scroll");
-    elements.forEach((el) => observer.observe(el));
-
-    return () => observer.disconnect();
-  }, []);
-
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-    document.documentElement.classList.toggle("dark");
-  };
-
-  const handleCopy = (e: React.ClipboardEvent<HTMLDivElement>) => {
-    e.clipboardData.setData("text/plain", "i love you 💔");
-    e.preventDefault();
-  };
+  if (!mounted) {
+    return (
+      <div className="min-h-screen bg-background text-foreground">
+        <div className="flex items-center justify-center h-screen">
+          <div className="w-8 h-8 rounded-full border-2 border-primary border-t-transparent animate-spin" />
+        </div>
+      </div>
+    )
+  }
 
   return (
-    <div
-      className="min-h-screen bg-background text-foreground"
-      onCopy={handleCopy}
-    >
-      <Header isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
+    <div ref={containerRef} className="min-h-screen bg-background text-foreground">
+      <Header />
+      <HeroScene />
       <HeroSection />
       <SkillsSection />
       <ProjectsSection />
-      <Suspense fallback={"loading..."}>
-        <GithubProjects />
-      </Suspense>
+      <ServicesSection />
+      <FunSection />
+      <GithubProjects />
       <EducationSection />
       <ExperienceSection />
       <ContactSection />
       <Footer />
     </div>
-  );
+  )
 }
