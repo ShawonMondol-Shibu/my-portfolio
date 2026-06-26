@@ -6,10 +6,12 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"
 
 gsap.registerPlugin(ScrollTrigger)
 
-export function useScrollReveal() {
+export function useScrollReveal(ready: boolean) {
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    if (!ready || !containerRef.current) return
+
     const ctx = gsap.context(() => {
       gsap.utils.toArray<HTMLElement>(".gsap-reveal").forEach((el) => {
         const direction = el.dataset.direction || "up"
@@ -28,6 +30,7 @@ export function useScrollReveal() {
           duration: 1,
           delay,
           ease: "power3.out",
+          immediateRender: false,
           scrollTrigger: {
             trigger: el,
             start: "top 85%",
@@ -45,6 +48,7 @@ export function useScrollReveal() {
           stagger: 0.08,
           duration: 0.8,
           ease: "power3.out",
+          immediateRender: false,
           scrollTrigger: {
             trigger: container,
             start: "top 80%",
@@ -84,6 +88,7 @@ export function useScrollReveal() {
           stagger: 0.02,
           duration: 0.6,
           ease: "back.out(1.7)",
+          immediateRender: false,
           scrollTrigger: {
             trigger: el,
             start: "top 80%",
@@ -98,6 +103,7 @@ export function useScrollReveal() {
           opacity: 0,
           duration: 0.8,
           ease: "back.out(1.7)",
+          immediateRender: false,
           scrollTrigger: {
             trigger: el,
             start: "top 80%",
@@ -108,26 +114,7 @@ export function useScrollReveal() {
     }, containerRef)
 
     return () => ctx.revert()
-  }, [])
+  }, [ready])
 
   return containerRef
-}
-
-export function useSmoothScroll() {
-  useEffect(() => {
-    const links = document.querySelectorAll('a[href^="#"]')
-    links.forEach((link) => {
-      link.addEventListener("click", (e) => {
-        e.preventDefault()
-        const target = document.querySelector(link.getAttribute("href") || "")
-        if (target) {
-          gsap.to(window, {
-            duration: 1,
-            scrollTo: { y: target, offsetY: 80 },
-            ease: "power3.inOut",
-          })
-        }
-      })
-    })
-  }, [])
 }

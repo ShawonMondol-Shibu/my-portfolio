@@ -3,9 +3,8 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaFacebook, FaLinkedin, FaGithub } from "react-icons/fa"
-import { Send, Sparkles, CheckCircle, XCircle } from "lucide-react"
+import { Send, Sparkles, CheckCircle, XCircle, LoaderCircle } from "lucide-react"
 import { useState } from "react"
-import { cn } from "@/lib/utils"
 
 const FORMSPREE_ID = "YOUR_FORMSPREE_ID"
 
@@ -43,20 +42,20 @@ export default function ContactSection() {
   ]
 
   const socials = [
-    { icon: FaFacebook, label: "Facebook", href: "https://www.facebook.com/shawon.mondol.797/", color: "hover:bg-blue-600" },
-    { icon: FaLinkedin, label: "LinkedIn", href: "https://www.linkedin.com/in/shawon-mondol-142302294", color: "hover:bg-blue-700" },
-    { icon: FaGithub, label: "GitHub", href: "https://github.com/ShawonMondol-Shibu", color: "hover:bg-foreground" },
+    { icon: FaFacebook, label: "Facebook", href: "https://www.facebook.com/shawon.mondol.797/" },
+    { icon: FaLinkedin, label: "LinkedIn", href: "https://www.linkedin.com/in/shawon-mondol-142302294" },
+    { icon: FaGithub, label: "GitHub", href: "https://github.com/ShawonMondol-Shibu" },
   ]
 
   return (
-    <section id="contact" className="py-24 px-4 relative overflow-hidden">
+    <section id="contact" className="py-18 md:py-20 px-4 relative overflow-hidden">
       <div className="absolute inset-0 -z-10">
         <div className="absolute bottom-0 right-0 size-96 bg-primary/5 rounded-full blur-3xl" />
         <div className="absolute top-0 left-0 size-80 bg-secondary/5 rounded-full blur-3xl" />
       </div>
 
       <div className="container mx-auto max-w-5xl">
-        <div className="text-center mb-12 animate-on-scroll">
+        <div className="text-center mb-10 gsap-reveal">
           <h2 className="font-playfair text-4xl md:text-5xl font-bold mb-4">
             Get in <span className="text-neon">Touch</span>
           </h2>
@@ -66,7 +65,7 @@ export default function ContactSection() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
-          <div className="lg:col-span-2 flex flex-col gap-4 animate-on-scroll">
+          <div className="lg:col-span-2 flex flex-col gap-4 gsap-reveal" data-direction="left">
             {infoCards.map((item, index) => {
               const Icon = item.icon
               return (
@@ -103,11 +102,11 @@ export default function ContactSection() {
                       key={i}
                       variant="outline"
                       size="icon"
-                      className={cn("border-border/30 text-muted-foreground hover:text-white transition-all duration-200", social.color)}
+                      className="border-border/30 text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-200"
                       asChild
                     >
-                      <a href={social.href} target="_blank" rel="noopener noreferrer">
-                        <social.icon className="size-4" />
+                      <a href={social.href} target="_blank" rel="noopener noreferrer" aria-label={social.label}>
+                        <social.icon />
                       </a>
                     </Button>
                   ))}
@@ -116,7 +115,7 @@ export default function ContactSection() {
             </Card>
           </div>
 
-          <Card className="lg:col-span-3 bg-card border-border/50 animate-on-scroll" style={{ animationDelay: "0.2s" }}>
+          <Card className="lg:col-span-3 bg-card border-border/50 gsap-reveal" data-direction="right">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-xl">
                 <Sparkles className="size-5 text-primary" />
@@ -139,6 +138,8 @@ export default function ContactSection() {
                       value={formState.name}
                       onChange={handleChange}
                       placeholder=" "
+                      required
+                      aria-required="true"
                       className="peer w-full px-3 pt-5 pb-2 border border-border/50 rounded-xl bg-background text-sm focus:ring-2 focus:ring-primary/30 focus:border-primary/50 transition-all outline-none"
                     />
                     <label
@@ -155,6 +156,8 @@ export default function ContactSection() {
                       value={formState.email}
                       onChange={handleChange}
                       placeholder=" "
+                      required
+                      aria-required="true"
                       className="peer w-full px-3 pt-5 pb-2 border border-border/50 rounded-xl bg-background text-sm focus:ring-2 focus:ring-primary/30 focus:border-primary/50 transition-all outline-none"
                     />
                     <label
@@ -172,6 +175,8 @@ export default function ContactSection() {
                     value={formState.message}
                     onChange={handleChange}
                     placeholder=" "
+                    required
+                    aria-required="true"
                     className="peer w-full px-3 pt-5 pb-2 border border-border/50 rounded-xl bg-background text-sm focus:ring-2 focus:ring-primary/30 focus:border-primary/50 transition-all outline-none resize-none"
                   />
                   <label
@@ -184,11 +189,11 @@ export default function ContactSection() {
                 <Button
                   type="submit"
                   disabled={status === "sending"}
-                  className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90 text-white font-medium py-5 rounded-xl shadow-lg shadow-primary/20 transition-all duration-200"
+                  className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90 text-primary-foreground font-medium py-5 rounded-xl shadow-lg shadow-primary/20 transition-all duration-200"
                 >
                   {status === "sending" ? (
                     <span className="inline-flex items-center gap-2">
-                      <span className="size-4 rounded-full border-2 border-white border-t-transparent animate-spin" />
+                      <LoaderCircle data-icon="inline-start" className="animate-spin" />
                       Sending...
                     </span>
                   ) : (
@@ -198,16 +203,18 @@ export default function ContactSection() {
                     </>
                   )}
                 </Button>
-                {status === "success" && (
-                  <p className="flex items-center gap-2 text-sm text-green-500">
-                    <CheckCircle className="size-4" /> Message sent successfully!
-                  </p>
-                )}
-                {status === "error" && (
-                  <p className="flex items-center gap-2 text-sm text-destructive">
-                    <XCircle className="size-4" /> Failed to send. Please try again.
-                  </p>
-                )}
+                <div aria-live="polite">
+                  {status === "success" && (
+                    <p className="flex items-center gap-2 text-sm text-secondary">
+                      <CheckCircle className="size-4" /> Message sent successfully!
+                    </p>
+                  )}
+                  {status === "error" && (
+                    <p className="flex items-center gap-2 text-sm text-destructive">
+                      <XCircle className="size-4" /> Failed to send. Please try again.
+                    </p>
+                  )}
+                </div>
               </form>
             </CardContent>
           </Card>

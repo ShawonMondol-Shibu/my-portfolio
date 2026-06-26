@@ -11,7 +11,6 @@ interface Service {
   description: string
   details: string[]
   color: string
-  gradient: string
 }
 
 export default function ServicesSection() {
@@ -29,7 +28,6 @@ export default function ServicesSection() {
         "API integration and development",
       ],
       color: "oklch(0.65 0.25 330)",
-      gradient: "from-primary/20 via-accent/10 to-transparent",
     },
     {
       title: "UI/UX Design",
@@ -42,7 +40,6 @@ export default function ServicesSection() {
         "Design system creation",
       ],
       color: "oklch(0.7 0.2 190)",
-      gradient: "from-secondary/20 via-primary/10 to-transparent",
     },
     {
       title: "SEO & Optimization",
@@ -55,7 +52,6 @@ export default function ServicesSection() {
         "Search engine visibility",
       ],
       color: "oklch(0.6 0.2 290)",
-      gradient: "from-accent/20 via-secondary/10 to-transparent",
     },
     {
       title: "Maintenance & Support",
@@ -68,14 +64,13 @@ export default function ServicesSection() {
         "24/7 monitoring support",
       ],
       color: "oklch(0.75 0.2 30)",
-      gradient: "from-primary/20 via-accent/10 to-transparent",
     },
   ]
 
   return (
-    <section id="services" className="py-24 px-4 bg-card/20">
+    <section id="services" className="py-18 md:py-20 px-4 bg-card/20">
       <div className="container mx-auto max-w-5xl">
-        <div className="text-center mb-12 animate-on-scroll">
+        <div className="text-center mb-10 gsap-reveal">
           <h2 className="font-playfair text-4xl md:text-5xl font-bold mb-4">
             What I <span className="text-neon">Do</span>
           </h2>
@@ -84,7 +79,7 @@ export default function ServicesSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 gsap-stagger">
           {services.map((service, index) => {
             const Icon = service.icon
             const isFlipped = flipped === index
@@ -92,10 +87,15 @@ export default function ServicesSection() {
             return (
               <div
                 key={index}
-                className="relative h-[280px] animate-on-scroll"
-                style={{ animationDelay: `${index * 0.1}s` }}
+                className="relative min-h-[280px] focus-within:outline-2 focus-within:outline-ring focus-within:outline-offset-4"
                 onMouseEnter={() => setFlipped(index)}
                 onMouseLeave={() => setFlipped(null)}
+                onClick={() => setFlipped(flipped === index ? null : index)}
+                onFocus={() => setFlipped(index)}
+                onBlur={() => setFlipped(null)}
+                tabIndex={0}
+                role="button"
+                aria-label={`${isFlipped ? "Hide" : "Show"} ${service.title} details`}
               >
                 <div
                   className={cn(
@@ -116,7 +116,7 @@ export default function ServicesSection() {
                     <h3 className="font-playfair text-lg font-semibold mb-2">{service.title}</h3>
                     <p className="text-sm text-muted-foreground">{service.description}</p>
                     <p className="text-xs text-primary mt-3 flex items-center gap-1">
-                      Hover to see details <ArrowRight className="size-3" />
+                      View details <ArrowRight className="size-3" />
                     </p>
                   </div>
 
@@ -140,10 +140,10 @@ export default function ServicesSection() {
           })}
         </div>
 
-        <div className="text-center mt-10 animate-on-scroll">
+        <div className="text-center mt-10 gsap-reveal" data-direction="scale">
           <Link
             href="#contact"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-primary to-accent text-white font-medium hover:opacity-90 transition-all duration-200 shadow-lg shadow-primary/20"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-primary to-accent text-primary-foreground font-medium hover:opacity-90 transition-all duration-200 shadow-lg shadow-primary/20"
           >
             Let&apos;s Work Together <ArrowRight className="size-4" />
           </Link>

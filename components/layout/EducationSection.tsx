@@ -41,13 +41,13 @@ export default function EducationSection() {
   ]
 
   return (
-    <section id="education" className="py-24 px-4 relative overflow-hidden">
+    <section id="education" className="py-18 md:py-20 px-4 relative overflow-hidden">
       <div className="absolute inset-0 -z-10 opacity-20">
         <div className="absolute top-0 left-1/2 size-96 bg-accent/10 rounded-full blur-3xl" />
       </div>
 
       <div className="container mx-auto max-w-4xl">
-        <div className="text-center mb-14 animate-on-scroll">
+        <div className="text-center mb-10 gsap-reveal">
           <h2 className="font-playfair text-4xl md:text-5xl font-bold mb-4">
             Education <span className="text-neon">&</span> Training
           </h2>
@@ -57,7 +57,7 @@ export default function EducationSection() {
         </div>
 
         <div className="relative">
-          <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-secondary to-accent -translate-x-1/2" />
+          <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-secondary to-accent md:-translate-x-1/2" />
 
           <div className="flex flex-col gap-10">
             {education.map((item, index) => {
@@ -68,10 +68,10 @@ export default function EducationSection() {
                 <div
                   key={index}
                   className={cn(
-                    "relative flex flex-col md:flex-row items-start gap-6 animate-on-scroll",
+                    "relative flex flex-col md:flex-row items-start gap-6 gsap-reveal",
                     isLeft ? "md:flex-row" : "md:flex-row-reverse"
                   )}
-                  style={{ animationDelay: `${index * 0.15}s` }}
+                  data-direction={isLeft ? "left" : "right"}
                 >
                   <div className={cn("flex-1", isLeft && "md:text-right")}>
                     <div className="bg-card border border-border/50 rounded-2xl p-5 hover:border-primary/20 transition-all duration-300 hover:-translate-y-1">
@@ -93,7 +93,7 @@ export default function EducationSection() {
                       className="size-10 rounded-full flex items-center justify-center ring-4 ring-background shadow-xl"
                       style={{ backgroundColor: item.color }}
                     >
-                      <Icon className="size-4 text-white" />
+                      <Icon className="size-4 text-primary-foreground" />
                     </div>
                   </div>
 

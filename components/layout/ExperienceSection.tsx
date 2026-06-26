@@ -24,9 +24,9 @@ export default function ExperienceSection() {
   ]
 
   return (
-    <section id="experience" className="py-24 px-4 bg-card/20">
+    <section id="experience" className="py-18 md:py-20 px-4 bg-card/20">
       <div className="container mx-auto max-w-4xl">
-        <div className="text-center mb-14 animate-on-scroll">
+        <div className="text-center mb-10 gsap-reveal">
           <h2 className="font-playfair text-4xl md:text-5xl font-bold mb-4 flex items-center justify-center gap-3">
             <FaBriefcase className="text-primary" />
             Experience
@@ -36,7 +36,7 @@ export default function ExperienceSection() {
           </p>
         </div>
 
-        <div className="relative animate-on-scroll">
+        <div className="relative gsap-reveal">
           <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary to-accent" />
 
           {experiences.map((exp, index) => (

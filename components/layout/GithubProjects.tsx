@@ -8,6 +8,7 @@ import { Badge } from "../ui/badge"
 import { Skeleton } from "../ui/skeleton"
 import { ArrowUpRightFromSquareIcon, GitForkIcon, StarIcon, AlertCircle, RotateCw } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
 
 interface repoType {
   id: number
@@ -35,6 +36,7 @@ export default function GithubProjects() {
       if (!res.ok) throw new Error("Failed to fetch repositories")
       const data = await res.json()
       setRepos(data)
+      requestAnimationFrame(() => ScrollTrigger.refresh())
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Something went wrong")
     } finally {
@@ -43,19 +45,23 @@ export default function GithubProjects() {
   }
 
   useEffect(() => {
-    fetchRepos()
+    const timeout = window.setTimeout(() => {
+      void fetchRepos()
+    }, 0)
+    return () => window.clearTimeout(timeout)
   }, [])
 
   const sorted = [...repos].sort((a, b) =>
     sortBy === "stars" ? b.stargazers_count - a.stargazers_count
     : new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime()
   )
+  const visibleRepos = sorted.slice(0, 12)
 
   if (loading) {
     return (
-      <section className="py-20 px-4">
+      <section className="py-18 md:py-20 px-4">
         <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-12">
+          <div className="text-center mb-10">
             <h2 className="font-playfair text-4xl md:text-5xl font-bold mb-4">
               GitHub <span className="text-neon">Projects</span>
             </h2>
@@ -81,7 +87,7 @@ export default function GithubProjects() {
 
   if (error) {
     return (
-      <section className="py-20 px-4">
+      <section className="py-18 md:py-20 px-4">
         <div className="container mx-auto max-w-6xl text-center">
           <div className="flex flex-col items-center gap-4">
             <AlertCircle className="size-12 text-destructive" />
@@ -97,9 +103,9 @@ export default function GithubProjects() {
   }
 
   return (
-    <section className="py-20 px-4 bg-card/20">
+    <section className="py-18 md:py-20 px-4 bg-card/20">
       <div className="container mx-auto max-w-6xl">
-        <div className="text-center mb-12 animate-on-scroll">
+        <div className="text-center mb-10 gsap-reveal">
           <h2 className="font-playfair text-4xl md:text-5xl font-bold mb-4">
             GitHub <span className="text-neon">Projects</span>
           </h2>
@@ -109,43 +115,50 @@ export default function GithubProjects() {
           </p>
         </div>
 
-        <div className="flex justify-center gap-2 mb-10 animate-on-scroll">
-          <button
+        <div className="flex justify-center gap-2 mb-8 gsap-reveal" data-direction="scale">
+          <Button
+            type="button"
+            size="sm"
+            variant={sortBy === "updated" ? "default" : "outline"}
             onClick={() => setSortBy("updated")}
+            aria-pressed={sortBy === "updated"}
             className={cn(
-              "px-4 py-2 rounded-full text-sm font-medium transition-all",
+              "rounded-full px-4 transition-all",
               sortBy === "updated"
-                ? "bg-gradient-to-r from-primary to-accent text-white"
-                : "bg-card text-muted-foreground border border-border/50"
+                ? "bg-gradient-to-r from-primary to-accent text-primary-foreground"
+                : "bg-card text-muted-foreground border-border/50"
             )}
           >
             Recently Updated
-          </button>
-          <button
+          </Button>
+          <Button
+            type="button"
+            size="sm"
+            variant={sortBy === "stars" ? "default" : "outline"}
             onClick={() => setSortBy("stars")}
+            aria-pressed={sortBy === "stars"}
             className={cn(
-              "px-4 py-2 rounded-full text-sm font-medium transition-all",
+              "rounded-full px-4 transition-all",
               sortBy === "stars"
-                ? "bg-gradient-to-r from-primary to-accent text-white"
-                : "bg-card text-muted-foreground border border-border/50"
+                ? "bg-gradient-to-r from-primary to-accent text-primary-foreground"
+                : "bg-card text-muted-foreground border-border/50"
             )}
           >
             Most Stars
-          </button>
+          </Button>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {sorted.map((repo, i) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 gsap-stagger">
+          {visibleRepos.map((repo) => (
             <Card
               key={repo.id}
-              className="bg-card border-border/50 hover:border-primary/30 transition-all duration-300 hover:-translate-y-1 animate-on-scroll"
-              style={{ animationDelay: `${i * 0.05}s` }}
+              className="bg-card border-border/50 hover:border-primary/30 transition-all duration-300 hover:-translate-y-1"
             >
               <CardHeader>
                 <div className="flex items-start justify-between">
                   <CardTitle className="text-base font-playfair">{repo.name}</CardTitle>
                   <Button variant="ghost" size="icon" asChild className="text-muted-foreground hover:text-primary shrink-0">
-                    <Link href={repo.html_url} target="_blank" aria-label="Open GitHub Repository">
+                    <Link href={repo.html_url} target="_blank" rel="noopener noreferrer" aria-label={`Open ${repo.name} on GitHub`}>
                       <ArrowUpRightFromSquareIcon />
                     </Link>
                   </Button>
@@ -176,6 +189,18 @@ export default function GithubProjects() {
               </CardContent>
             </Card>
           ))}
+        </div>
+
+        <div className="mt-8 flex flex-col items-center gap-3 text-center gsap-reveal" data-direction="scale">
+          <p className="text-sm text-muted-foreground">
+            Showing {visibleRepos.length} of {sorted.length} public repositories.
+          </p>
+          <Button variant="outline" asChild>
+            <Link href="https://github.com/ShawonMondol-Shibu?tab=repositories" target="_blank" rel="noopener noreferrer">
+              View More on GitHub
+              <ArrowUpRightFromSquareIcon data-icon="inline-end" />
+            </Link>
+          </Button>
         </div>
       </div>
     </section>

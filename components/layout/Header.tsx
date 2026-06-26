@@ -11,10 +11,12 @@ export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [mounted, setMounted] = useState(false)
+  const [activeSection, setActiveSection] = useState("home")
   const { theme, setTheme } = useTheme()
 
   useEffect(() => {
-    setMounted(true)
+    const frame = requestAnimationFrame(() => setMounted(true))
+    return () => cancelAnimationFrame(frame)
   }, [])
 
   useEffect(() => {
@@ -22,6 +24,22 @@ export default function Header() {
     window.addEventListener("scroll", onScroll)
     return () => window.removeEventListener("scroll", onScroll)
   }, [])
+
+  useEffect(() => {
+    const sections = document.querySelectorAll("section[id]")
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id)
+          }
+        })
+      },
+      { rootMargin: "-20% 0px -70% 0px" }
+    )
+    sections.forEach((s) => observer.observe(s))
+    return () => observer.disconnect()
+  }, [mounted])
 
   const navItems = [
     { href: "#home", label: "Home" },
@@ -33,6 +51,7 @@ export default function Header() {
   ]
 
   const handleNavClick = () => setIsMobileMenuOpen(false)
+  const menuId = "mobile-navigation"
 
   return (
     <header
@@ -51,7 +70,7 @@ export default function Header() {
               width={40}
               height={40}
               alt="logo"
-              className="w-full h-full object-cover"
+              className="size-full object-cover"
             />
           </div>
           <span className="font-playfair text-lg font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
@@ -65,10 +84,18 @@ export default function Header() {
               key={item.href}
               href={item.href}
               onClick={handleNavClick}
-              className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200 relative group"
+              className={cn(
+                "px-3 py-2 text-sm font-medium transition-colors duration-200 relative group",
+                activeSection === item.href.slice(1)
+                  ? "text-foreground"
+                  : "text-muted-foreground hover:text-foreground"
+              )}
             >
               {item.label}
-              <span className="absolute bottom-0 left-2 right-2 h-0.5 bg-gradient-to-r from-primary to-accent scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left" />
+              <span className={cn(
+                "absolute bottom-0 left-2 right-2 h-0.5 bg-gradient-to-r from-primary to-accent transition-transform duration-200 origin-left",
+                activeSection === item.href.slice(1) ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+              )} />
             </a>
           ))}
           {mounted && (
@@ -101,28 +128,39 @@ export default function Header() {
             size="sm"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="hover:bg-primary/10 text-muted-foreground"
+            aria-label={isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={isMobileMenuOpen}
+            aria-controls={menuId}
           >
             {isMobileMenuOpen ? <X /> : <Menu />}
           </Button>
         </div>
       </div>
 
-      {isMobileMenuOpen && (
-        <div className="md:hidden border-t border-border/50 bg-background/95 backdrop-blur-xl">
-          <nav className="container py-4 flex flex-col gap-1 px-4">
+      <div className={cn(
+        "md:hidden border-t border-border/50 bg-background/95 backdrop-blur-xl overflow-hidden transition-all duration-300",
+        isMobileMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+      )}
+        id={menuId}
+      >
+        <nav className="container py-4 flex flex-col gap-1 px-4">
             {navItems.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
                 onClick={handleNavClick}
-                className="block py-2.5 px-3 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-primary/5 rounded-lg transition-all duration-200"
+                className={cn(
+                  "block py-2.5 px-3 text-sm font-medium rounded-lg transition-all duration-200",
+                  activeSection === item.href.slice(1)
+                    ? "bg-primary/10 text-foreground"
+                    : "text-muted-foreground hover:text-foreground hover:bg-primary/5"
+                )}
               >
                 {item.label}
               </a>
             ))}
           </nav>
-        </div>
-      )}
+      </div>
     </header>
   )
 }

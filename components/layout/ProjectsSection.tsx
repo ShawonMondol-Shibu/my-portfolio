@@ -15,7 +15,7 @@ export default function ProjectsSection() {
   const projects = [
     {
       title: "Shibu-hub",
-      description: "Product's buying shop. and also we serve electronics, shipping and delivery services.",
+      description: "An online shop for electronics, shipping support, and delivery services.",
       tags: ["Next.js", "TypeScript", "TailwindCSS", "Shadcn UI", "Recharts", "TanStack Query"],
       image: "/images/shibu-hub.png",
       demoUrl: "https://shibu-hub.vercel.app/",
@@ -23,7 +23,7 @@ export default function ProjectsSection() {
     },
     {
       title: "Furniro-Shop",
-      description: "Furniture buying system. you can buy your favourite furniture here.",
+      description: "A furniture shopping experience with product browsing and checkout flows.",
       tags: ["Next.js", "TypeScript", "Tailwind CSS", "Shadcn UI", "Clerk Auth"],
       image: "/images/furniro.png",
       demoUrl: "https://furniro-shop-gamma.vercel.app/",
@@ -39,7 +39,7 @@ export default function ProjectsSection() {
     },
     {
       title: "Memorial-Magazine",
-      description: "Explore Old days Memorys.",
+      description: "A digital memorial magazine for preserving and exploring shared memories.",
       tags: ["Next.js", "Tailwind CSS", "TypeScript", "Shadcn UI"],
       image: "/images/memorial-magazine.png",
       demoUrl: "https://memorial-magazine.vercel.app/",
@@ -47,7 +47,7 @@ export default function ProjectsSection() {
     },
     {
       title: "Discount ME",
-      description: "A Restaurant Booking and food ordering website",
+      description: "A restaurant booking and food ordering website.",
       tags: ["Next.js", "Tailwind CSS", "TypeScript", "Shadcn UI"],
       image: "/images/restaurant.png",
       demoUrl: "https://restaurant-management-black-xi.vercel.app/",
@@ -64,6 +64,7 @@ export default function ProjectsSection() {
   ]
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>, index: number) => {
+    if (window.matchMedia("(pointer: coarse)").matches) return
     const card = cardsRef.current[index]
     if (!card) return
     const rect = card.getBoundingClientRect()
@@ -83,9 +84,9 @@ export default function ProjectsSection() {
   }
 
   return (
-    <section id="projects" className="py-24 px-4 bg-card/30">
+    <section id="projects" className="py-18 md:py-20 px-4 bg-card/30">
       <div className="container mx-auto max-w-6xl">
-        <div className="text-center mb-12 animate-on-scroll">
+        <div className="text-center mb-10 gsap-reveal">
           <h2 className="font-playfair text-4xl md:text-5xl font-bold mb-4">
             Featured <span className="text-neon">Projects</span>
           </h2>
@@ -94,16 +95,18 @@ export default function ProjectsSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 gsap-stagger">
           {projects.map((project, index) => (
             <div
               key={index}
-              ref={(el) => { cardsRef.current[index] = el }}
-              className="animate-on-scroll transition-transform duration-200 ease-out"
-              style={{ animationDelay: `${index * 0.1}s` }}
-              onMouseMove={(e) => handleMouseMove(e, index)}
-              onMouseLeave={() => handleMouseLeave(index)}
+              className="gsap-reveal"
             >
+              <div
+                ref={(el) => { cardsRef.current[index] = el }}
+                className="transition-transform duration-200 ease-out"
+                onMouseMove={(e) => handleMouseMove(e, index)}
+                onMouseLeave={() => handleMouseLeave(index)}
+              >
               <Card className="overflow-hidden h-full bg-card border-border/50 hover:border-primary/30 transition-all duration-300 group">
                 <div className="relative overflow-hidden aspect-video">
                   <Image
@@ -112,16 +115,16 @@ export default function ProjectsSection() {
                     fill
                     className="object-cover group-hover:scale-110 transition-transform duration-700"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end justify-center pb-4">
-                    <div className="flex gap-2">
-                      <Button size="sm" className="bg-primary hover:bg-primary/80 text-white" asChild>
-                        <Link href={project.demoUrl} target="_blank">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end justify-center pb-4">
+                    <div className="flex gap-2 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
+                      <Button size="sm" className="bg-primary hover:bg-primary/80 text-primary-foreground" asChild>
+                        <Link href={project.demoUrl} target="_blank" rel="noopener noreferrer">
                           <ExternalLink data-icon="inline-start" />
                           Live
                         </Link>
                       </Button>
                       <Button size="sm" variant="outline" className="border-border/50 bg-background/50 backdrop-blur-sm" asChild>
-                        <Link href={project.githubUrl} target="_blank">
+                        <Link href={project.githubUrl} target="_blank" rel="noopener noreferrer">
                           <FaGithub data-icon="inline-start" />
                           Code
                         </Link>
@@ -135,7 +138,7 @@ export default function ProjectsSection() {
                   </CardTitle>
                   <CardDescription>{project.description}</CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="flex flex-col gap-4">
                   <div className="flex flex-wrap gap-1.5">
                     {project.tags.map((tag, tagIndex) => (
                       <Badge
@@ -147,8 +150,23 @@ export default function ProjectsSection() {
                       </Badge>
                     ))}
                   </div>
+                  <div className="flex gap-2 md:hidden">
+                    <Button size="sm" className="flex-1" asChild>
+                      <Link href={project.demoUrl} target="_blank" rel="noopener noreferrer">
+                        <ExternalLink data-icon="inline-start" />
+                        Live
+                      </Link>
+                    </Button>
+                    <Button size="sm" variant="outline" className="flex-1" asChild>
+                      <Link href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                        <FaGithub data-icon="inline-start" />
+                        Code
+                      </Link>
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
+              </div>
             </div>
           ))}
         </div>

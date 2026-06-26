@@ -1,7 +1,6 @@
 "use client"
 
-import { useState } from "react"
-import Image from "next/image"
+import { useState, useEffect, useRef } from "react"
 import { Cpu, Gamepad2, Brain, Coffee, X, ArrowRight } from "lucide-react"
 
 interface FunItem {
@@ -15,6 +14,17 @@ interface FunItem {
 
 export default function FunSection() {
   const [selected, setSelected] = useState<FunItem | null>(null)
+  const closeRef = useRef<HTMLButtonElement>(null)
+
+  useEffect(() => {
+    if (!selected) return
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setSelected(null)
+    }
+    document.addEventListener("keydown", handleEscape)
+    closeRef.current?.focus()
+    return () => document.removeEventListener("keydown", handleEscape)
+  }, [selected])
 
   const items: FunItem[] = [
     {
@@ -48,14 +58,14 @@ export default function FunSection() {
   ]
 
   return (
-    <section id="fun" className="py-24 px-4 relative overflow-hidden">
+    <section id="fun" className="py-18 md:py-20 px-4 relative overflow-hidden">
       <div className="absolute inset-0 -z-10">
         <div className="absolute top-10 left-10 size-72 bg-secondary/5 rounded-full blur-3xl" />
         <div className="absolute bottom-10 right-10 size-72 bg-accent/5 rounded-full blur-3xl" />
       </div>
 
       <div className="container mx-auto max-w-5xl">
-        <div className="text-center mb-12 animate-on-scroll">
+        <div className="text-center mb-10 gsap-reveal">
           <h2 className="font-playfair text-4xl md:text-5xl font-bold mb-4">
             Beyond the <span className="text-neon">Code</span>
           </h2>
@@ -64,15 +74,14 @@ export default function FunSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 gsap-stagger">
           {items.map((item, index) => {
             const Icon = item.icon
             return (
               <button
                 key={index}
                 onClick={() => setSelected(item)}
-                className="group text-left bg-card border border-border/50 rounded-2xl p-6 hover:border-primary/30 transition-all duration-300 hover:-translate-y-1 animate-on-scroll"
-                style={{ animationDelay: `${index * 0.1}s` }}
+                className="group text-left bg-card border border-border/50 rounded-2xl p-6 hover:border-primary/30 transition-all duration-300 hover:-translate-y-1"
               >
                 <div
                   className="size-12 rounded-xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110"
@@ -95,8 +104,11 @@ export default function FunSection() {
 
       {selected && (
         <div
-          className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm"
           onClick={() => setSelected(null)}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="fun-dialog-title"
         >
           <div
             className="bg-card border border-border/50 rounded-2xl max-w-md w-full p-6 animate-scale-in"
@@ -110,13 +122,15 @@ export default function FunSection() {
                 {<selected.icon className="size-6" />}
               </div>
               <button
+                ref={closeRef}
                 onClick={() => setSelected(null)}
                 className="text-muted-foreground hover:text-foreground transition-colors"
+                aria-label="Close details"
               >
                 <X className="size-5" />
               </button>
             </div>
-            <h3 className="font-playfair text-xl font-bold mb-2">{selected.title}</h3>
+            <h3 id="fun-dialog-title" className="font-playfair text-xl font-bold mb-2">{selected.title}</h3>
             <p className="text-muted-foreground leading-relaxed">{selected.details}</p>
           </div>
         </div>
