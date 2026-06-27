@@ -73,7 +73,7 @@ export default function Header() {
               className="size-full object-cover"
             />
           </div>
-          <span className="font-playfair text-lg font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+          <span className="font-playfair text-lg font-bold bg-linear-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
             Shawon
           </span>
         </a>
@@ -93,7 +93,7 @@ export default function Header() {
             >
               {item.label}
               <span className={cn(
-                "absolute bottom-0 left-2 right-2 h-0.5 bg-gradient-to-r from-primary to-accent transition-transform duration-200 origin-left",
+                "absolute bottom-0 left-2 right-2 h-0.5 bg-linear-to-r from-primary to-accent transition-transform duration-200 origin-left",
                 activeSection === item.href.slice(1) ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
               )} />
             </a>

@@ -50,22 +50,22 @@ export default function ScrollControls() {
       <Button
         type="button"
         size="icon"
-        variant="secondary"
+        variant="outline"
         onClick={scrollToTop}
         aria-label="Scroll to top"
         disabled={atTop}
-        className="size-11 rounded-full shadow-lg shadow-primary/10 backdrop-blur-sm"
+        className="size-11 rounded-full border-border/30 bg-background/20 text-muted-foreground hover:text-foreground hover:bg-background/40 shadow-lg backdrop-blur-md transition-all duration-300 disabled:opacity-0 disabled:pointer-events-none"
       >
         <ArrowUp />
       </Button>
       <Button
         type="button"
         size="icon"
-        variant="secondary"
+        variant="outline"
         onClick={scrollToBottom}
         aria-label="Scroll to bottom"
         disabled={atBottom}
-        className="size-11 rounded-full shadow-lg shadow-primary/10 backdrop-blur-sm"
+        className="size-11 rounded-full border-border/30 bg-background/20 text-muted-foreground hover:text-foreground hover:bg-background/40 shadow-lg backdrop-blur-md transition-all duration-300 disabled:opacity-0 disabled:pointer-events-none"
       >
         <ArrowDown />
       </Button>

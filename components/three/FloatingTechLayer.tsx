@@ -51,7 +51,7 @@ export default function FloatingTechLayer() {
   ]
 
   return (
-    <div className="fixed inset-0 z-0 pointer-events-none">
+    <div className="fixed inset-0 z-20 pointer-events-none">
       <Canvas
         camera={{ position: [0, 0, 12], fov: 55 }}
         dpr={[1, 1.35]}
@@ -73,15 +73,18 @@ export default function FloatingTechLayer() {
                 <Html transform sprite distanceFactor={9} center>
                   <div
                     className={cn(
-                      "flex items-center gap-2 rounded-full border border-border/70 bg-background/75 px-3 py-2 shadow-xl backdrop-blur-md",
+                      "relative flex items-center gap-2 rounded-full border border-border/70 px-3.5 py-2 shadow-xl",
                       "text-xs font-medium text-foreground"
                     )}
                     style={{
                       boxShadow: `0 0 28px ${item.color}20, 0 10px 30px rgba(0, 0, 0, 0.12)`,
                     }}
                   >
-                    <Icon style={{ color: item.color }} />
-                    <span>{item.name}</span>
+                    {/* Layered Glassmorphism Background to prevent 3D-transform text/icon blur bugs */}
+                    <div className="absolute inset-0 rounded-full bg-background/75 backdrop-blur-md -z-10" />
+                    
+                    <Icon className="size-4 shrink-0" style={{ color: item.color }} />
+                    <span className="relative z-10">{item.name}</span>
                   </div>
                 </Html>
               </group>

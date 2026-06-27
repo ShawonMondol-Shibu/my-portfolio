@@ -3,7 +3,6 @@ import type { Metadata } from "next"
 import { Inter, Playfair_Display } from "next/font/google"
 import "./globals.css"
 import CustomCursor from "@/components/layout/CustomCursor"
-import FloatingTechLayer from "@/components/three/FloatingTechLayer"
 import ScrollControls from "@/components/layout/ScrollControls"
 import { ThemeProvider } from "next-themes"
 
@@ -50,7 +49,6 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <CustomCursor />
-          <FloatingTechLayer />
           <ScrollControls />
           {children}
         </ThemeProvider>
